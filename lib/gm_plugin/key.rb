@@ -2,10 +2,10 @@ module Ym4r
   module GmPlugin
     class GMapsAPIKeyConfigFileNotFoundException < StandardError
     end
-        
+
     class AmbiguousGMapsAPIKeyException < StandardError
     end
-    
+
     #Class fo the manipulation of the API key
     class ApiKey
       #Read the API key config for the current ENV
@@ -15,7 +15,7 @@ module Ym4r
         env = ENV['RAILS_ENV'] || RAILS_ENV
         GMAPS_API_KEY = YAML.load_file(RAILS_ROOT + '/config/gmaps_api_key.yml')[env]
       end
-      
+
       def self.get(options = {})
         if options.has_key?(:key)
           options[:key]
