@@ -105,23 +105,24 @@ GeoRssOverlay.prototype.callback = function() {
 		//Atom
 		var items = xmlDoc.documentElement.getElementsByTagName("entry");
 	    }
-	    for (var i = 0, len = this.limitItems?Math.min(this.limitItems,items.length):items.length; i < len; i++) {
+	    if (items)
+	      for (var i = 0, len = this.limitItems?Math.min(this.limitItems,items.length):items.length; i < len; i++) {
 		try {
-		    var marker = this.createMarker(items[i],i);
-		    this.markers.push(marker);
-		    if(this.visible){
-			this.map.addOverlay(marker);
-		    }
+		  var marker = this.createMarker(items[i],i);
+		  this.markers.push(marker);
+		  if(this.visible){
+		    this.map.addOverlay(marker);
+		  }
 		} catch (e) {
 		}
-	    }
+	      }
 	}
 	this.request = false;
     }
 }
 
 GeoRssOverlay.prototype.createMarker = function(item,index) {
-    
+
     var title = item.getElementsByTagName("title")[0].childNodes[0].nodeValue;
     if(item.getElementsByTagName("description").length != 0){
 	//Rss
