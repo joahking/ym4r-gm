@@ -124,10 +124,22 @@ GeoRssOverlay.prototype.callback = function() {
 GeoRssOverlay.prototype.createMarker = function(item,index) {
 
     var title = item.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+    var icon;
     if(item.getElementsByTagName("description").length != 0){
 	//Rss
 	var description = item.getElementsByTagName("description")[0].childNodes[0].nodeValue;
-	var link = item.getElementsByTagName("link")[0].childNodes[0].nodeValue;    }else if(item.getElementsByTagName("summary").length != 0){
+	var link = item.getElementsByTagName("link")[0].childNodes[0].nodeValue;
+	var iconImage = item.getElementsByTagName("icon")[0].childNodes[0].nodeValue;
+	if (iconImage) {
+          icon = addOptionsToIcon(new GIcon(),
+          { iconSize : new GSize(20,34),
+            image : iconImage,
+            iconAnchor : new GPoint(12,34),
+            infoWindowAnchor : new GPoint(1,1) }
+          );
+	}
+    }
+    else if(item.getElementsByTagName("summary").length != 0){
 	//Atom
 	var description = item.getElementsByTagName("summary")[0].childNodes[0].nodeValue;
 	var link = item.getElementsByTagName("link")[0].attributes[0].nodeValue;
@@ -158,11 +170,10 @@ GeoRssOverlay.prototype.createMarker = function(item,index) {
 	    var lng = latlng[1];
 	}
     }
-    
     var point = new GLatLng(parseFloat(lat), parseFloat(lng));
-    var marker = new GMarker(point,{'title': title});
+    var marker = new GMarker(point,{'title': title, 'icon': icon});
     var html = "<a href=\"" + link + "\">" + title + "</a><p/>" + description;
-    
+
     if(this.contentDiv == undefined){
 	GEvent.addListener(marker, "click", function() {
 	    marker.openInfoWindowHtml(html);
