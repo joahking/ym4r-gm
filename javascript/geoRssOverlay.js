@@ -69,7 +69,7 @@ GeoRssOverlay.prototype.showMarker = function(id){
 }
 
 GeoRssOverlay.prototype.copy = function(){
-    var oCopy = new GeoRssOVerlay(this.rssurl,this.icon,this.proxyurl);
+    var oCopy = new GeoRssOverlay(this.rssurl,this.icon,this.proxyurl);
     oCopy.markers = [];
     for(var i = 0 , len = this.markers.length ;i < len ; i++){
 	oCopy.markers.push(this.markers[i].copy());
