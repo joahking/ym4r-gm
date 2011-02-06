@@ -78,8 +78,8 @@ GeoRssOverlay.prototype.copy = function(){
 }
 
 GeoRssOverlay.prototype.load=function() {
-    if (this.request != false) { 
-	return; 
+    if (this.request != false) {
+	return;
     }
     this.request = GXmlHttp.create();
     if (this.proxyurl != undefined) {
@@ -151,14 +151,14 @@ GeoRssOverlay.prototype.createMarker = function(item,index) {
 	    var lat = item.getElementsByTagNameNS("http://www.w3.org/2003/01/geo/wgs84_pos#","lat")[0].childNodes[0].nodeValue;
 	    var lng = item.getElementsByTagNameNS("http://www.w3.org/2003/01/geo/wgs84_pos#","long")[0].childNodes[0].nodeValue;
 	}else if(item.getElementsByTagNameNS("http://www.georss.org/georss","point").length != 0){
-	    
+
 	    //Simple
 	    var latlng = item.getElementsByTagNameNS("http://www.georss.org/georss","point")[0].childNodes[0].nodeValue.split(" ");
 	    var lat = latlng[0];
 	    var lng = latlng[1];
 	}
     } else {
-	
+
 	if(item.getElementsByTagName("geo:lat").length != 0){
 	    //W3C Geo Vocabulary
 	    var lat = item.getElementsByTagName("geo:lat")[0].childNodes[0].nodeValue;
@@ -184,9 +184,9 @@ GeoRssOverlay.prototype.createMarker = function(item,index) {
 	    document.getElementById(contentDiv).innerHTML = html;
 	});
     }
-    
+
     if(this.listDiv != undefined){
-	var a = document.createElement('a'); 
+	var a = document.createElement('a');
 	a.innerHTML = title;
 	a.setAttribute("href","#");
 	var georss = this;
@@ -201,6 +201,6 @@ GeoRssOverlay.prototype.createMarker = function(item,index) {
 	div.appendChild(a);
 	document.getElementById(this.listDiv).appendChild(div);
     }
-    
+
     return marker;
 }
