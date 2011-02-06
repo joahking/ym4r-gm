@@ -12,7 +12,7 @@ module Ym4r
       unless File.exist?(::Rails.root.to_s + '/config/gmaps_api_key.yml')
         raise GMapsAPIKeyConfigFileNotFoundException.new("File RAILS_ROOT/config/gmaps_api_key.yml not found")
       else
-        env = ENV['RAILS_ENV'] || RAILS_ENV
+        env = ENV['RAILS_ENV'] || ::Rails.env
         GMAPS_API_KEY = YAML.load_file(::Rails.root.to_s + '/config/gmaps_api_key.yml')[env]
       end
 
