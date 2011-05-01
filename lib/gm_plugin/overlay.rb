@@ -26,10 +26,11 @@ module Ym4r
       #Creates a marker: If an info_window or info_window_tabs is present, the response to the click action from the user is setup here.
       def create
         if @options.empty?
-          creation = "new GMarker(#{MappingObject.javascriptify_variable(@point)})"
+          creation = "function(){ var m = new GMarker(#{MappingObject.javascriptify_variable(@point)}); if (markers != undefined) markers.push(m); return m; }()"
         else
-          creation = "new GMarker(#{MappingObject.javascriptify_variable(@point)},#{MappingObject.javascriptify_variable(@options)})"
+          creation = "function(){ var m = new GMarker(#{MappingObject.javascriptify_variable(@point)},#{MappingObject.javascriptify_variable(@options)}); if (markers != undefined) markers.push(m); return m; }()"
         end
+
         if @info_window && @info_window.is_a?(String)
           creation = "addInfoWindowToMarker(#{creation},#{MappingObject.javascriptify_variable(@info_window)},#{MappingObject.javascriptify_variable(@info_window_options)})"
         elsif @info_window_tabs && @info_window_tabs.is_a?(Hash)
